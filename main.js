@@ -11,15 +11,21 @@ function genGrid(width,mines)
     var field=[];
     var mines=genMines(width,mines);    
 
-    for (var x=0;x<Math.pow(width,2);x++)
+    var mineIndex=0;
+    for (var x=0;x<width;x++)
     {
-        field.push(x);
-
-        if (x==mines[0])
+        field.push([]);
+        for (var y=0;y<width;y++)
         {
-            mines.shift();
-            console.log(mines);
-            field[x]="x";
+            field[x][y]=0;
+
+            if (mineIndex==mines[0])
+            {
+                field[x][y]=-1;
+                mines.shift();
+            }
+
+            mineIndex++;                       
         }
     }
 
