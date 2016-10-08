@@ -2,12 +2,33 @@ $(document).ready(main);
 
 function main()
 {
-    genMines(5,4);
-    genGrid(5,10);
+    genBoxes(10,10);
+}
+
+function genBoxes(width,mines)
+{
+    var box=$(".construction-items .box").clone();
+    var field=$(".field");
+
+    field.css("width",width*50+"px")
+        .css("height",width*50+"px");
+
+    var dataFields=genGrid(width,mines);
+
+    var newBox;
+    for (var x=0;x<Math.pow(width,2);x++)
+    {
+        newBox=box.clone();
+        newBox.find("p").text(dataFields[1][x][2]);
+
+        field.append(newBox);
+    }
+        
 }
 
 function genGrid(width,mines)
 {
+    var numField=[]; //[[],[],[],...], contains [x coord, y coord, contents]
     var field=[];
     var mines=genMines(width,mines);    
 
@@ -17,10 +38,12 @@ function genGrid(width,mines)
         field.push([]);
         for (var y=0;y<width;y++)
         {
+            numField[mineIndex]=[x,y,0];
             field[x][y]=0;
 
             if (mineIndex==mines[0])
             {
+                numField[mineIndex][2]=-1;
                 field[x][y]=-1;
                 mines.shift();
             }
@@ -29,7 +52,7 @@ function genGrid(width,mines)
         }
     }
 
-    console.log(field);
+    return [field,numField];
 }
 
 function genMines(width,mines)

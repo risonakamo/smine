@@ -5,10 +5,21 @@ body
     margin: 0;
 }
 
+.construction-items
+{
+    display: none;
+}
+
 .box
 {
     display: inline-block;
     width: 50px;
     height: 50px;
     text-align: center;
+}
+
+.field
+{
+    width: 250px;
+    height: 250px;
 }
