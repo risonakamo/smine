@@ -7,7 +7,7 @@ function main()
 
 function genBoxes(width,mines)
 {
-    var box=$(".construction-items .box").clone();
+    var box=$(".construction-items .box").clone(true,true);
     var field=$(".field");
 
     field.css("width",width*50+"px")
@@ -19,11 +19,21 @@ function genBoxes(width,mines)
     for (var x=0;x<Math.pow(width,2);x++)
     {
         newBox=box.clone();
-        newBox.find("p").text(dataFields[1][x][2]);
+        newBox.find("a").text(dataFields[1][x][2])
+        .attr("href",dataFields[1][x][0]+" "+dataFields[1][x][1]);
+
+        newBox.on("click",function(e){
+            e.preventDefault();
+
+            var coords=($(this).find("a").attr("href")).split(" ");
+            coords[0]=parseInt(coords[0]);
+            coords[1]=parseInt(coords[1]);
+            
+            console.log(coords);
+        });
 
         field.append(newBox);
-    }
-        
+    }        
 }
 
 function genGrid(width,mines)
