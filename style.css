@@ -63,3 +63,9 @@ a
 {
     color: red;
 }
+
+.box.lose,.box.lose:hover
+{
+    opacity: 0;
+    background-color: rgba(0,0,0,0);
+}

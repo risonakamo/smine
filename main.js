@@ -202,11 +202,20 @@ function lose()
 {
     var boxes=$(".field .box");
 
-    boxes.addClass("opened");  
-    boxes.find("a").addClass("opened lose");
+    boxes.removeClass("opened").addClass("lose");
+    boxes.find("a").removeClass("opened");
+    boxes.off("click");
     boxes.on("click",function(e){
         e.preventDefault();
-    });    
+    });
+
+    boxes.each(function(x,e){
+        if (dataFields[1][x][2]==-1)
+        {
+            boxes.eq(x).removeClass("lose").addClass("opened");
+            boxes.find("a").eq(x).text("x").addClass("opened lose");
+        }
+    });
 }
 
 function reveal()
