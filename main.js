@@ -1,7 +1,7 @@
 $(document).ready(main);
 
 //image array: [0%,50%,80%,100%]
-var images=["1.png","2.png","2.png","3.png"];
+var images;
 
 function main()
 {
@@ -270,4 +270,11 @@ function ishift(shiftImg)
 
     t.to(imgs.eq(0),.2,{opacity:0},0)
         .to(imgs.eq(1),.2,{opacity:1},0);
+}
+
+function loadImg()
+{
+    $.get("board.json",function(d){
+        images=d.imgset;
+    },"json")
 }
