@@ -6,7 +6,7 @@ var images;
 function main()
 {
     loadImg();
-    genBoxes(16,40);
+    genBoxes(16,3);
 }
 
 var dataFields;
@@ -218,13 +218,15 @@ function checkMines(currMine,mineList)
 
 function won()
 {
-    var boxes=$(".field .box");
+    // var boxes=$(".field .box");
 
-    boxes.addClass("opened");  
-    boxes.find("a").addClass("opened");
-    boxes.on("click",function(e){
-        e.preventDefault();
-    });
+    // boxes.addClass("opened");  
+    // boxes.find("a").addClass("opened");
+    // boxes.on("click",function(e){
+    //     e.preventDefault();
+    // });
+    
+    $(".field .box").remove();
 
     ishift(images[3]);
 }
