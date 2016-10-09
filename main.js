@@ -2,7 +2,7 @@ $(document).ready(main);
 
 function main()
 {
-    genBoxes(10,10);
+    genBoxes(3,3);
 }
 
 function genBoxes(width,mines)
@@ -38,6 +38,8 @@ function genBoxes(width,mines)
 }
 
 //field: grid field
+var win;
+var found=0;
 var checkIndex=[[-1,1],[0,1],[1,1],[-1,0],[1,0],[-1,-1],[0,-1],[1,-1]];
 function checkAround(thisBox,coords,field)
 {
@@ -60,7 +62,8 @@ function checkAround(thisBox,coords,field)
         checkCoord[1]+=checkIndex[x][1];
 
         if (checkCoord[0]>=field.length || checkCoord[1]>=field.length 
-            || checkCoord[0]<0 || checkCoord[1]<0 || field[checkCoord[0]][checkCoord[1]]==1)
+            || checkCoord[0]<0 || checkCoord[1]<0 
+            || field[checkCoord[0]][checkCoord[1]]==1)
         {
             continue;
         }
@@ -77,6 +80,12 @@ function checkAround(thisBox,coords,field)
     thisBox.on("click",function(e){
         e.preventDefault();
     });
+
+    found++;
+    if (found==win)
+    {
+        console.log("win");
+    }
 
     var numCoord=((coords[0]*field.length)+coords[1]);
 
@@ -105,6 +114,7 @@ function checkAround(thisBox,coords,field)
 
 function genGrid(width,mines)
 {
+    win=Math.pow(width,2)-mines;
     var numField=[]; //[[],[],[],...], contains [x coord, y coord, contents]
     var field=[];
     var mines=genMines(width,mines);    
