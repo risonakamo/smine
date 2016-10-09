@@ -2,7 +2,7 @@ $(document).ready(main);
 
 function main()
 {
-    genBoxes(3,3);
+    genBoxes(2,1);
 }
 
 function genBoxes(width,mines)
@@ -81,12 +81,6 @@ function checkAround(thisBox,coords,field)
         e.preventDefault();
     });
 
-    found++;
-    if (found==win)
-    {
-        console.log("win");
-    }
-
     var numCoord=((coords[0]*field.length)+coords[1]);
 
     thisBox.find("a").text(mineCount).addClass("opened");
@@ -105,6 +99,12 @@ function checkAround(thisBox,coords,field)
             
             checkAround(boxes.eq(numCoord2),surroundList2[y],field);
         }
+    }
+
+    found++;
+    if (found==win)
+    {
+        won();
     }
 
     // console.log(numCoord);
@@ -178,4 +178,12 @@ function checkMines(currMine,mineList)
     }
 
     return 0;
+}
+
+function won()
+{
+    var boxes=$(".field .box");
+
+    boxes.addClass("opened");  
+    boxes.find("a").addClass("opened");
 }
