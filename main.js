@@ -29,7 +29,7 @@ function genBoxes(width,mines)
             coords[0]=parseInt(coords[0]);
             coords[1]=parseInt(coords[1]);
             
-            checkAround(coords,dataFields[0]);
+            checkAround($(this),coords,dataFields[0]);
             //console.log(coords);
         });
 
@@ -39,10 +39,12 @@ function genBoxes(width,mines)
 
 //field: grid field
 var checkIndex=[[-1,1],[0,1],[1,1],[-1,0],[1,0],[-1,-1],[0,-1],[1,-1]];
-function checkAround(coords,field)
+function checkAround(thisBox,coords,field)
 {
     var mineCount=0;
     var surroundList=[];
+
+    var boxes=$(".field .box");
 
     for (var x=0;x<checkIndex.length;x++)
     {
@@ -51,7 +53,7 @@ function checkAround(coords,field)
         checkCoord[1]+=checkIndex[x][1];
 
         if (checkCoord[0]>=field.length || checkCoord[1]>=field.length 
-            || checkCoord[0]<0 || checkCoord[1]<0)
+            || checkCoord[0]<0 || checkCoord[1]<0 || field[checkCoord[0]][checkCoord[1]]==1)
         {
             continue;
         }
@@ -64,25 +66,30 @@ function checkAround(coords,field)
         }
     }
 
+    field[coords[0]][coords[1]]=1;
+
     var numCoord=((coords[0]*field.length)+coords[1]);
 
-    $(".field .box a").eq(numCoord).text(mineCount).css("color","blue");
+    thisBox.text(mineCount).css("color","blue");
 
     if (mineCount==0)
     {
-        console.log("mine 0");
         var surroundList2=surroundList.slice();
-        for (var y=0;y<surroundList2.length;y++)
+        for (var y=0,count=surroundList2.length;y<count;y++)
         {
-            var numCoord2=((surroundList2[y][0]*field.length)+surroundList2[y][1]);
-            console.log(numCoord2);
-            $(".field .box a").eq(numCoord2).css("color","blue");
+            // var numCoord2=((surroundList2[y][0]*field.length)+surroundList2[y][1]);
+            // console.log(numCoord2);
+            // $(".field .box a").eq(numCoord2).css("color","blue");
+            
+            var numCoord2=(surroundList2[y][0]*field.length)+surroundList2[y][1];        
+            
+            checkAround(boxes.eq(numCoord2),surroundList2[y],field);
         }
     }
 
-    console.log(numCoord);
+    // console.log(numCoord);
     console.log(surroundList);
-    console.log(mineCount);
+    // console.log(mineCount);
 }
 
 function genGrid(width,mines)
