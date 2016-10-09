@@ -13,7 +13,7 @@ function genBoxes(width,mines)
     field.css("width",width*50+"px")
         .css("height",width*50+"px");
 
-    var dataFields=genGrid(width,mines);
+    var dataFields=genGrid(width,mines); //0: grid field, 1: single row
 
     var newBox;
     for (var x=0;x<Math.pow(width,2);x++)
@@ -29,11 +29,44 @@ function genBoxes(width,mines)
             coords[0]=parseInt(coords[0]);
             coords[1]=parseInt(coords[1]);
             
-            console.log(coords);
+            checkAround(coords,dataFields[0]);
+            //console.log(coords);
         });
 
         field.append(newBox);
     }        
+}
+
+//field: grid field
+var checkIndex=[[-1,1],[0,1],[1,1],[-1,0],[1,0],[-1,-1],[0,-1],[1,-1]];
+function checkAround(coords,field)
+{
+    var mineCount=0;
+    var surroundList=[];
+    console.log(field);
+
+    for (var x=0;x<checkIndex.length;x++)
+    {
+        var checkCoord=coords.slice();
+        checkCoord[0]+=checkIndex[x][0];
+        checkCoord[1]+=checkIndex[x][1];
+
+        if (checkCoord[0]>=field.length || checkCoord[1]>=field.length 
+            || checkCoord[0]<0 || checkCoord[1]<0)
+        {
+            continue;
+        }
+
+        surroundList.push(checkCoord);
+        
+        if (field[checkCoord[0]][checkCoord[1]]<0)
+        {
+            mineCount++;
+        }
+    }
+
+    console.log(surroundList);
+    console.log(mineCount);
 }
 
 function genGrid(width,mines)
