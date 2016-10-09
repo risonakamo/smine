@@ -5,6 +5,7 @@ var images;
 
 function main()
 {
+    loadImg();
     genBoxes(16,40);
 }
 
@@ -276,5 +277,6 @@ function loadImg()
 {
     $.get("board.json",function(d){
         images=d.imgset;
+        $(".field img").eq(0).attr("src",images[0]);
     },"json")
 }
