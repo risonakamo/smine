@@ -1,6 +1,7 @@
 $(document).ready(main);
 
-var images=["1.png","2.png","3.png"];
+//image array: [0%,50%,80%,100%]
+var images=["1.png","2.png","2.png","3.png"];
 
 function main()
 {
@@ -98,12 +99,16 @@ function checkAround(thisBox,coords,field)
         {
             fieldStatus=2;
             console.log("80% complete");
+
+            $(".field").css("background-image","url('"+images[2]+"')");
         }
 
         else if (found>Math.floor(win*.5) && fieldStatus==0)
         {
             fieldStatus=1;
             console.log("50% complete");
+
+            $(".field").css("background-image","url('"+images[1]+"')");
         }
     }
 
@@ -211,6 +216,8 @@ function won()
     boxes.on("click",function(e){
         e.preventDefault();
     });
+
+    $(".field").css("background-image","url('"+images[3]+"')");
 }
 
 function lose()
