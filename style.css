@@ -8,6 +8,7 @@ body
 
 a
 {
+    font-size: 20px;
     text-decoration: none;
     color: black;
     user-select: none;
@@ -82,7 +83,7 @@ a
     background-color: rgba(232,42,54,.1);
 }
 
-.box.marked
+.box.marked,.box.marked:hover
 {
     opacity: 1;
     background-color: rgba(134,237,50,.4);

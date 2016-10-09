@@ -126,6 +126,8 @@ function checkAround(thisBox,coords,field)
 
     if (mineCount==0)
     {
+        thisBox.find("a").text(" ");
+
         var surroundList2=surroundList.slice();
         for (var y=0,count=surroundList2.length;y<count;y++)
         {
