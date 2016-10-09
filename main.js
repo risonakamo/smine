@@ -19,7 +19,7 @@ function genBoxes(width,mines)
     for (var x=0;x<Math.pow(width,2);x++)
     {
         newBox=box.clone();
-        newBox.find("a").text(dataFields[1][x][2])
+        newBox.find("a").text(0)
         .attr("href",dataFields[1][x][0]+" "+dataFields[1][x][1]);
 
         newBox.on("click",function(e){
@@ -43,7 +43,8 @@ function checkAround(thisBox,coords,field)
 {
     if (field[coords[0]][coords[1]]==-1)
     {
-        thisBox.find("a").css("color","red");
+        thisBox.find("a").text("x").addClass("opened");
+        thisBox.addClass("opened");
         return;
     }
 
@@ -73,10 +74,14 @@ function checkAround(thisBox,coords,field)
     }
 
     field[coords[0]][coords[1]]=1;
+    thisBox.on("click",function(e){
+        e.preventDefault();
+    });
 
     var numCoord=((coords[0]*field.length)+coords[1]);
 
-    thisBox.text(mineCount).css("color","blue");
+    thisBox.find("a").text(mineCount).addClass("opened");
+    thisBox.addClass("opened");
 
     if (mineCount==0)
     {
