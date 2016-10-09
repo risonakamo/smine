@@ -42,6 +42,7 @@ function genBoxes(width,mines)
 var win;
 var found=0;
 var checkIndex=[[-1,1],[0,1],[1,1],[-1,0],[1,0],[-1,-1],[0,-1],[1,-1]];
+var fieldStatus=0;
 function checkAround(thisBox,coords,field)
 {
     if (field[coords[0]][coords[1]]==-1)
@@ -84,11 +85,23 @@ function checkAround(thisBox,coords,field)
 
     if (field[coords[0]][coords[1]]!=1)
     {
-        found++;
-        console.log([found,win]);
+        found++;       
+
         if (found==win)
         {
             won();
+        }
+
+        else if (found>Math.floor(win*.8) && fieldStatus!=2)
+        {
+            fieldStatus=2;
+            console.log("80% complete");
+        }
+
+        else if (found>Math.floor(win*.5) && fieldStatus==0)
+        {
+            fieldStatus=1;
+            console.log("50% complete");
         }
     }
 
