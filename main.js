@@ -5,7 +5,7 @@ var images=["1.png","2.png","2.png","3.png"];
 
 function main()
 {
-    genBoxes(16,10);
+    genBoxes(16,40);
 }
 
 var dataFields;
@@ -100,7 +100,7 @@ function checkAround(thisBox,coords,field)
             fieldStatus=2;
             console.log("80% complete");
 
-            $(".field").css("background-image","url('"+images[2]+"')");
+            $(".field img").attr("src",images[2]);
         }
 
         else if (found>Math.floor(win*.5) && fieldStatus==0)
@@ -108,7 +108,7 @@ function checkAround(thisBox,coords,field)
             fieldStatus=1;
             console.log("50% complete");
 
-            $(".field").css("background-image","url('"+images[1]+"')");
+            $(".field img").attr("src",images[1]);
         }
     }
 
@@ -217,7 +217,7 @@ function won()
         e.preventDefault();
     });
 
-    $(".field").css("background-image","url('"+images[3]+"')");
+    $(".field img").attr("src",images[3]);
 }
 
 function lose()
