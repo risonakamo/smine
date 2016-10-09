@@ -26,6 +26,7 @@ a
     text-align: center;
     vertical-align: middle;
     
+    background-color: rgba(0,0,0,.8);
     transition-property: background-color;
     transition-duration: .2s;
 }
@@ -77,4 +78,10 @@ a
 {
     opacity: 1;
     background-color: rgba(232,42,54,.1);
+}
+
+.box.marked
+{
+    opacity: 1;
+    background-color: rgba(134,237,50,.4);
 }

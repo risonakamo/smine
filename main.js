@@ -37,6 +37,12 @@ function genBoxes(width,mines)
             //console.log(coords);
         });
 
+        newBox.on("contextmenu",function(e){
+            e.preventDefault();
+
+            $(this).toggleClass("marked");
+        });
+
         field.append(newBox);
     }        
 }
@@ -224,9 +230,12 @@ function lose()
 {
     var boxes=$(".field .box");
 
-    boxes.removeClass("opened").addClass("lose");
+    boxes.removeClass("opened marked").addClass("lose");
     boxes.find("a").removeClass("opened");
+
     boxes.off("click");
+    boxes.off("contextmenu");
+
     boxes.on("click",function(e){
         e.preventDefault();
     });
