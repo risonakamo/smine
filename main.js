@@ -47,6 +47,7 @@ function checkAround(thisBox,coords,field)
     {
         thisBox.find("a").text("x").addClass("opened");
         thisBox.addClass("opened");
+        lose();
         return;
     }
 
@@ -186,4 +187,18 @@ function won()
 
     boxes.addClass("opened");  
     boxes.find("a").addClass("opened");
+    boxes.on("click",function(e){
+        e.preventDefault();
+    });
+}
+
+function lose()
+{
+    var boxes=$(".field .box");
+
+    boxes.addClass("opened");  
+    boxes.find("a").addClass("opened lose");
+    boxes.on("click",function(e){
+        e.preventDefault();
+    });    
 }

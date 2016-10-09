@@ -3,6 +3,7 @@
 body
 {
     margin: 0;
+    font-family: roboto;
 }
 
 a
@@ -55,6 +56,10 @@ a
 
 .box .opened
 {
-    color: blue;
     opacity: 1;
+}
+
+.box .lose
+{
+    color: red;
 }
