@@ -2,9 +2,10 @@ $(document).ready(main);
 
 function main()
 {
-    genBoxes(2,1);
+    genBoxes(9,10);
 }
 
+var dataFields;
 function genBoxes(width,mines)
 {
     var box=$(".construction-items .box").clone(true,true);
@@ -13,7 +14,7 @@ function genBoxes(width,mines)
     field.css("width",width*50+"px")
         .css("height",width*50+"px");
 
-    var dataFields=genGrid(width,mines); //0: grid field, 1: single row
+    dataFields=genGrid(width,mines); //0: grid field, 1: single row
 
     var newBox;
     for (var x=0;x<Math.pow(width,2);x++)
@@ -77,12 +78,21 @@ function checkAround(thisBox,coords,field)
         }
     }
 
-    field[coords[0]][coords[1]]=1;
     thisBox.on("click",function(e){
         e.preventDefault();
     });
 
-    var numCoord=((coords[0]*field.length)+coords[1]);
+    if (field[coords[0]][coords[1]]!=1)
+    {
+        found++;
+        console.log([found,win]);
+        if (found==win)
+        {
+            won();
+        }
+    }
+
+    field[coords[0]][coords[1]]=1;
 
     thisBox.find("a").text(mineCount).addClass("opened");
     thisBox.addClass("opened");
@@ -102,14 +112,10 @@ function checkAround(thisBox,coords,field)
         }
     }
 
-    found++;
-    if (found==win)
-    {
-        won();
-    }
+
 
     // console.log(numCoord);
-    console.log(surroundList);
+    //console.log(surroundList);
     // console.log(mineCount);
 }
 
@@ -201,4 +207,13 @@ function lose()
     boxes.on("click",function(e){
         e.preventDefault();
     });    
+}
+
+function reveal()
+{
+    var boxes=$(".field .box");
+
+    boxes.each(function(x,e){
+        boxes.eq(x).text(dataFields[1][x][2]);
+    })
 }
