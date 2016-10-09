@@ -32,7 +32,7 @@ a
 
 .box:hover
 {
-    background-color: black;
+    background-color: rgba(0,0,0,.4);
 }
 
 .box a
@@ -46,12 +46,15 @@ a
 {
     width: 250px;
     height: 250px;
+
+    background-image: url("1.png");
+    background-size: 100%;
 }
 
 .box.opened,.box.opened:hover
 {
     opacity: 1;    
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0,0,0,.1);
 }
 
 .box .opened
@@ -66,6 +69,6 @@ a
 
 .box.lose,.box.lose:hover
 {
-    opacity: 0;
-    background-color: rgba(0,0,0,0);
+    opacity: 1;
+    background-color: rgba(232,42,54,.1);
 }

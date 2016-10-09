@@ -1,8 +1,10 @@
 $(document).ready(main);
 
+var images=["1.png","2.png","3.png"];
+
 function main()
 {
-    genBoxes(9,10);
+    genBoxes(16,10);
 }
 
 var dataFields;
@@ -225,7 +227,7 @@ function lose()
     boxes.each(function(x,e){
         if (dataFields[1][x][2]==-1)
         {
-            boxes.eq(x).removeClass("lose").addClass("opened");
+            boxes.eq(x).addClass("opened");
             boxes.find("a").eq(x).text("x").addClass("opened lose");
         }
     });
