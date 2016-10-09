@@ -41,6 +41,12 @@ function genBoxes(width,mines)
 var checkIndex=[[-1,1],[0,1],[1,1],[-1,0],[1,0],[-1,-1],[0,-1],[1,-1]];
 function checkAround(thisBox,coords,field)
 {
+    if (field[coords[0]][coords[1]]==-1)
+    {
+        thisBox.find("a").css("color","red");
+        return;
+    }
+
     var mineCount=0;
     var surroundList=[];
 
