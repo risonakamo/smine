@@ -100,7 +100,7 @@ function checkAround(thisBox,coords,field)
             fieldStatus=2;
             console.log("80% complete");
 
-            $(".field img").attr("src",images[2]);
+            ishift(images[2]);
         }
 
         else if (found>Math.floor(win*.5) && fieldStatus==0)
@@ -108,7 +108,7 @@ function checkAround(thisBox,coords,field)
             fieldStatus=1;
             console.log("50% complete");
 
-            $(".field img").attr("src",images[1]);
+            ishift(images[1]);
         }
     }
 
@@ -217,7 +217,7 @@ function won()
         e.preventDefault();
     });
 
-    $(".field img").attr("src",images[3]);
+    ishift(images[3]);
 }
 
 function lose()
@@ -253,6 +253,12 @@ function ishift(shiftImg)
 {
     var imgs=$(".field img");
    
-    TweenMax.to(imgs.eq(0),.2,{opacity:"0"});
-    TweenMax.to(imgs.eq(1),.2,{opacity:"1"});
+    imgs.eq(1).attr("src",shiftImg).css("opacity","0");
+
+    var t=new TimelineMax({onComplete:function(){
+        imgs.attr("src",shiftImg);
+    }});
+
+    t.to(imgs.eq(0),.2,{opacity:0},0)
+        .to(imgs.eq(1),.2,{opacity:1},0);
 }
