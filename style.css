@@ -32,7 +32,7 @@ a
 
 .box:hover
 {
-    background-color: rgba(0,0,0,.4);
+    background-color: rgba(0,0,0,.2);
 }
 
 .box a
@@ -60,7 +60,7 @@ a
 .box.opened,.box.opened:hover
 {
     opacity: 1;    
-    background-color: rgba(0,0,0,.1);
+    background-color: rgba(0,0,0,.3);
 }
 
 .box .opened

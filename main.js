@@ -248,3 +248,11 @@ function reveal()
         boxes.eq(x).text(dataFields[1][x][2]);
     })
 }
+
+function ishift(shiftImg)
+{
+    var imgs=$(".field img");
+   
+    TweenMax.to(imgs.eq(0),.2,{opacity:"0"});
+    TweenMax.to(imgs.eq(1),.2,{opacity:"1"});
+}
