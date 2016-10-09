@@ -43,7 +43,6 @@ function checkAround(coords,field)
 {
     var mineCount=0;
     var surroundList=[];
-    console.log(field);
 
     for (var x=0;x<checkIndex.length;x++)
     {
@@ -65,6 +64,23 @@ function checkAround(coords,field)
         }
     }
 
+    var numCoord=((coords[0]*field.length)+coords[1]);
+
+    $(".field .box a").eq(numCoord).text(mineCount).css("color","blue");
+
+    if (mineCount==0)
+    {
+        console.log("mine 0");
+        var surroundList2=surroundList.slice();
+        for (var y=0;y<surroundList2.length;y++)
+        {
+            var numCoord2=((surroundList2[y][0]*field.length)+surroundList2[y][1]);
+            console.log(numCoord2);
+            $(".field .box a").eq(numCoord2).css("color","blue");
+        }
+    }
+
+    console.log(numCoord);
     console.log(surroundList);
     console.log(mineCount);
 }
