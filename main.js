@@ -5,24 +5,38 @@ var images;
 
 function main()
 {
-    loadImg();
-    genBoxes(16,24,60);
+    // loadImg();
+    // genBoxes(16,16,40);
+
+    init();
+}
+
+function init()
+{
+    $.get("board.json",function(d){
+        images=d.imgset;
+        $(".field img").eq(0).attr("src",images[0]);
+
+        genBoxes(d.width,d.height,d.mines,d.tile);
+    },"json");
 }
 
 var fboxes;
 var fwidth;
 var fheight;
 var dataFields;
-function genBoxes(width,height,mines)
+function genBoxes(width,height,mines,tile)
 {
     fwidth=width;
     fheight=height;
 
-    var box=$(".construction-items .box").clone(true,true);
+    var box=$(".construction-items .box");
     var field=$(".field");
 
-    field.css("width",width*50+"px")
-        .css("height",height*50+"px");
+    $(".construction-items").remove();
+
+    field.css("width",width*tile+"px")
+        .css("height",height*tile+"px");
 
     dataFields=genGrid(width,height,mines); //0: grid field, 1: single row
 
@@ -54,6 +68,61 @@ function genBoxes(width,height,mines)
     }      
 
     fboxes=$(".field .box");
+}
+
+function genGrid(width,height,mines)
+{
+    win=(width*height)-mines;
+    var numField=[]; //[[],[],[],...], contains [x coord, y coord, contents]
+    var field=[];
+    var mines=genMines(width,height,mines);    
+
+    var mineIndex=0;
+    for (var x=0;x<height;x++)
+    {
+        field.push([]);
+        for (var y=0;y<width;y++)
+        {
+            numField[mineIndex]=[x,y,0];
+            field[x][y]=0;
+
+            if (mineIndex==mines[0])
+            {
+                numField[mineIndex][2]=-1;
+                field[x][y]=-1;
+                mines.shift();
+            }
+
+            mineIndex++;                       
+        }
+    }
+    
+    return [field,numField];
+}
+
+function genMines(width,height,mines)
+{
+    var mineList=[];
+    
+    var currMine;
+    for (var x=0;x<mines;x++)
+    {
+        currMine=Math.floor(Math.random()*(width*height));
+
+        if (checkMines(currMine,mineList))
+        {
+            x--;
+        }
+
+        else
+        {
+            mineList.push(currMine);
+        }
+    }
+
+    mineList.sort(function(a,b){return a-b});
+
+    return mineList;
 }
 
 //field: grid field
@@ -152,61 +221,6 @@ function checkAround(thisBox,coords,field)
     // console.log(mineCount);
 }
 
-function genGrid(width,height,mines)
-{
-    win=(width*height)-mines;
-    var numField=[]; //[[],[],[],...], contains [x coord, y coord, contents]
-    var field=[];
-    var mines=genMines(width,height,mines);    
-
-    var mineIndex=0;
-    for (var x=0;x<height;x++)
-    {
-        field.push([]);
-        for (var y=0;y<width;y++)
-        {
-            numField[mineIndex]=[x,y,0];
-            field[x][y]=0;
-
-            if (mineIndex==mines[0])
-            {
-                numField[mineIndex][2]=-1;
-                field[x][y]=-1;
-                mines.shift();
-            }
-
-            mineIndex++;                       
-        }
-    }
-    
-    return [field,numField];
-}
-
-function genMines(width,height,mines)
-{
-    var mineList=[];
-    
-    var currMine;
-    for (var x=0;x<mines;x++)
-    {
-        currMine=Math.floor(Math.random()*(width*height));
-
-        if (checkMines(currMine,mineList))
-        {
-            x--;
-        }
-
-        else
-        {
-            mineList.push(currMine);
-        }
-    }
-
-    mineList.sort(function(a,b){return a-b});
-
-    return mineList;
-}
-
 function checkMines(currMine,mineList)
 {
     for (var x=0;x<mineList.length;x++)
@@ -256,15 +270,6 @@ function lose()
             boxes.find("a").eq(x).text("x").addClass("opened lose");
         }
     });
-}
-
-function reveal()
-{
-    var boxes=$(".field .box");
-
-    boxes.each(function(x,e){
-        boxes.eq(x).text(dataFields[1][x][2]);
-    })
 }
 
 function ishift(shiftImg)
