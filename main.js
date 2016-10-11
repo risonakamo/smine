@@ -6,9 +6,10 @@ var images;
 function main()
 {
     loadImg();
-    genBoxes(24,16,5);
+    genBoxes(16,24,60);
 }
 
+var fboxes;
 var fwidth;
 var fheight;
 var dataFields;
@@ -39,7 +40,7 @@ function genBoxes(width,height,mines)
             coords[0]=parseInt(coords[0]);
             coords[1]=parseInt(coords[1]);
             
-            checkAround($(this),coords,dataFields[0],width,height);
+            checkAround($(this),coords,dataFields[0]);
             //console.log(coords);
         });
 
@@ -50,7 +51,9 @@ function genBoxes(width,height,mines)
         });
 
         field.append(newBox);
-    }        
+    }      
+
+    fboxes=$(".field .box");
 }
 
 //field: grid field
@@ -59,9 +62,7 @@ var found=0;
 var checkIndex=[[-1,1],[0,1],[1,1],[-1,0],[1,0],[-1,-1],[0,-1],[1,-1]];
 var fieldStatus=0;
 function checkAround(thisBox,coords,field)
-{  
-    console.log(coords);
-    
+{      
     if (field[coords[0]][coords[1]]==-1)
     {
         thisBox.find("a").text("x").addClass("opened");
@@ -72,8 +73,6 @@ function checkAround(thisBox,coords,field)
 
     var mineCount=0;
     var surroundList=[];
-
-    var boxes=$(".field .box");
 
     for (var x=0;x<checkIndex.length;x++)
     {
@@ -144,7 +143,7 @@ function checkAround(thisBox,coords,field)
             
             var numCoord2=(surroundList2[y][0]*fwidth)+surroundList2[y][1];        
             
-            checkAround(boxes.eq(numCoord2),surroundList2[y],field);
+            checkAround(fboxes.eq(numCoord2),surroundList2[y],field);
         }
     }
 
@@ -180,7 +179,6 @@ function genGrid(width,height,mines)
         }
     }
     
-    console.log(field,numField);
     return [field,numField];
 }
 
