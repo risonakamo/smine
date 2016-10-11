@@ -13,13 +13,13 @@ function main()
 
 function init()
 {
-    $.get("board.json",function(d2){
-        var d=d2[0];
+    $.get("board.json",function(d){
+        var d2=d.data[0];
 
-        images=d.imgset;
+        images=d2.imgset;
         $(".field img").eq(0).attr("src",images[0]);
 
-        genBoxes(d.width,d.height,d.mines,d.tile);
+        genBoxes(d2.width,d2.height,d2.mines,d2.tile);
     },"json");
 }
 
