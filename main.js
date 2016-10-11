@@ -14,7 +14,22 @@ function main()
 function init()
 {
     $.get("board.json",function(d){
-        var d2=d.data[0];
+        var boardSelect=window.location.hash;
+        boardSelect=boardSelect.split("#");
+
+        var board=0;
+
+        if (boardSelect.length>1)
+        {
+            board=parseInt(boardSelect[1]);
+
+            if (board<0 || board>boardSelect.length)
+            {
+                board=0;
+            }            
+        }
+
+        var d2=d.data[board];
 
         images=d2.imgset;
         $(".field img").eq(0).attr("src",images[0]);
