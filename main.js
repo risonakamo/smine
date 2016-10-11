@@ -13,7 +13,9 @@ function main()
 
 function init()
 {
-    $.get("board.json",function(d){
+    $.get("board.json",function(d2){
+        var d=d2[0];
+
         images=d.imgset;
         $(".field img").eq(0).attr("src",images[0]);
 
