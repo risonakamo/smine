@@ -55,6 +55,9 @@ function genBoxes(width,height,mines,tile)
     field.css("width",width*tile+"px")
         .css("height",height*tile+"px");
 
+    $(".wrap").css("width",width*tile+"px")
+        .css("height",height*tile+"px");
+
     dataFields=genGrid(width,height,mines); //0: grid field, 1: single row
 
     var newBox;

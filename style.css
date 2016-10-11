@@ -46,10 +46,16 @@ a
     text-shadow: 0px 1px 6px rgba(255, 255, 255, 1);
 }
 
+.wrap
+{
+    position: relative;
+    margin: auto;
+    width: 100%;
+    display: block;
+}
+
 .field
 {
-    margin: auto;
-    display: block;
     position: relative;
     width: 250px;
     height: 250px;
@@ -89,4 +95,17 @@ a
 {
     opacity: 1;
     background-color: rgba(134,237,50,.4);
+}
+
+.info a
+{
+    font-size: 15px;
+    
+    transition-property: color;
+    transition-duration: .1s;
+}
+
+.info a:hover
+{
+    color: #4B5659;
 }
