@@ -6,22 +6,22 @@ var images;
 function main()
 {
     loadImg();
-    genBoxes(16,3);
+    genBoxes(24,16,40);
 }
 
 var dataFields;
-function genBoxes(width,mines)
+function genBoxes(width,height,mines)
 {
     var box=$(".construction-items .box").clone(true,true);
     var field=$(".field");
 
     field.css("width",width*50+"px")
-        .css("height",width*50+"px");
+        .css("height",height*50+"px");
 
-    dataFields=genGrid(width,mines); //0: grid field, 1: single row
+    dataFields=genGrid(width,height,mines); //0: grid field, 1: single row
 
     var newBox;
-    for (var x=0;x<Math.pow(width,2);x++)
+    for (var x=0;x<width*height;x++)
     {
         newBox=box.clone();
         newBox.find("a").text(0)
@@ -34,7 +34,7 @@ function genBoxes(width,mines)
             coords[0]=parseInt(coords[0]);
             coords[1]=parseInt(coords[1]);
             
-            checkAround($(this),coords,dataFields[0]);
+            checkAround($(this),coords,dataFields[0],width,height);
             //console.log(coords);
         });
 
@@ -53,7 +53,7 @@ var win;
 var found=0;
 var checkIndex=[[-1,1],[0,1],[1,1],[-1,0],[1,0],[-1,-1],[0,-1],[1,-1]];
 var fieldStatus=0;
-function checkAround(thisBox,coords,field)
+function checkAround(thisBox,coords,field,width,height)
 {
     if (field[coords[0]][coords[1]]==-1)
     {
@@ -74,7 +74,7 @@ function checkAround(thisBox,coords,field)
         checkCoord[0]+=checkIndex[x][0];
         checkCoord[1]+=checkIndex[x][1];
 
-        if (checkCoord[0]>=field.length || checkCoord[1]>=field.length 
+        if (checkCoord[0]>=width || checkCoord[1]>=height 
             || checkCoord[0]<0 || checkCoord[1]<0 
             || field[checkCoord[0]][checkCoord[1]]==1)
         {
@@ -135,28 +135,26 @@ function checkAround(thisBox,coords,field)
             // console.log(numCoord2);
             // $(".field .box a").eq(numCoord2).css("color","blue");
             
-            var numCoord2=(surroundList2[y][0]*field.length)+surroundList2[y][1];        
+            var numCoord2=(surroundList2[y][0]*width)+surroundList2[y][1];        
             
             checkAround(boxes.eq(numCoord2),surroundList2[y],field);
         }
     }
-
-
 
     // console.log(numCoord);
     //console.log(surroundList);
     // console.log(mineCount);
 }
 
-function genGrid(width,mines)
+function genGrid(width,height,mines)
 {
-    win=Math.pow(width,2)-mines;
+    win=(width*height)-mines;
     var numField=[]; //[[],[],[],...], contains [x coord, y coord, contents]
     var field=[];
-    var mines=genMines(width,mines);    
+    var mines=genMines(width,height,mines);    
 
     var mineIndex=0;
-    for (var x=0;x<width;x++)
+    for (var x=0;x<height;x++)
     {
         field.push([]);
         for (var y=0;y<width;y++)
@@ -178,14 +176,14 @@ function genGrid(width,mines)
     return [field,numField];
 }
 
-function genMines(width,mines)
+function genMines(width,height,mines)
 {
     var mineList=[];
     
     var currMine;
     for (var x=0;x<mines;x++)
     {
-        currMine=Math.floor(Math.random()*Math.pow(width,2));
+        currMine=Math.floor(Math.random()*(width*height));
 
         if (checkMines(currMine,mineList))
         {
