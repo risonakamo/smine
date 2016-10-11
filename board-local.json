@@ -1,0 +1,22 @@
+{
+    "data":
+    [
+        {
+            "imgset":["images/anzu/1.png","images/anzu/2.png",
+                      "images/anzu/3.png","images/anzu/4.png"],
+            "width":19,
+            "height":16,
+            "mines":50,
+            "tile":50
+        },
+
+        {
+            "imgset":["images/libeccio/1.png","images/libeccio/2.png",
+                      "images/libeccio/2.png","images/libeccio/3.png"],
+            "width":16,
+            "height":16,
+            "mines":40,
+            "tile":50
+        }
+    ]
+}
