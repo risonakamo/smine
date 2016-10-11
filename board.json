@@ -21,6 +21,17 @@
             "height":16,
             "mines":40,
             "tile":50
+        },
+
+        {
+            "imgset":["http://i.imgur.com/UQDXldC.png",
+                      "http://i.imgur.com/KNFymmX.png",
+                      "http://i.imgur.com/uMzfJRZ.png",
+                      "http://i.imgur.com/jZ5IVgs.png"],
+            "width":16,
+            "height":23,
+            "mines":66,
+            "tile":50
         }
     ]
 }

@@ -14,6 +14,11 @@ a
     user-select: none;
 }
 
+p
+{
+    margin: 0;
+}
+
 .construction-items
 {
     display: none;

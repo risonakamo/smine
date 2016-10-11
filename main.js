@@ -58,6 +58,8 @@ function genBoxes(width,height,mines,tile)
     $(".wrap").css("width",width*tile+"px")
         .css("height",height*tile+"px");
 
+    infoSet(width,height,mines);
+
     dataFields=genGrid(width,height,mines); //0: grid field, 1: single row
 
     var newBox;
@@ -312,4 +314,31 @@ function loadImg()
         images=d.imgset;
         $(".field img").eq(0).attr("src",images[0]);
     },"json")
+}
+
+function infoSet(width,height,mines)
+{
+    var mineRate=((mines/(width*height))*100).toFixed(2);
+    var infoText="BETA PantsuSweeper v1.4 "+width+"x"+height+" "+mines+" mines ("+mineRate+"% mine rate)";
+   
+    var difficulty;
+
+    if (mineRate>=20)
+    {
+        difficulty="expert";
+    }
+
+    else if (mineRate>10 && mineRate<20)
+    {
+        difficulty="intermediate";
+    }
+
+    else
+    {
+        difficulty="easy";
+    }
+
+    infoText=infoText+" -> "+difficulty;
+
+    $(".info p").text(infoText);
 }
