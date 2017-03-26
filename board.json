@@ -8,7 +8,7 @@
                       "http://i.imgur.com/LH5843t.png"],
             "width":19,
             "height":16,
-            "mines":50,
+            "mines":48,
             "tile":50
         },
 
@@ -30,7 +30,7 @@
                       "http://i.imgur.com/jZ5IVgs.png"],
             "width":16,
             "height":23,
-            "mines":66,
+            "mines":56,
             "tile":50
         }
     ]
