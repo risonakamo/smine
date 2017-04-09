@@ -2,20 +2,35 @@
     "data":
     [
         {
-            "imgset":["images/anzu/1.png","images/anzu/2.png",
-                      "images/anzu/3.png","images/anzu/4.png"],
+            "imgset":["http://i.imgur.com/XjO5KZF.png",
+                      "http://i.imgur.com/Six58FO.png",
+                      "http://i.imgur.com/9CnG3ZU.png",
+                      "http://i.imgur.com/LH5843t.png"],
             "width":19,
             "height":16,
-            "mines":50,
+            "mines":48,
             "tile":50
         },
 
         {
-            "imgset":["images/libeccio/1.png","images/libeccio/2.png",
-                      "images/libeccio/2.png","images/libeccio/3.png"],
+            "imgset":["http://i.imgur.com/AhWCa8D.png",
+                      "http://i.imgur.com/yZexfBe.png",
+                      "http://i.imgur.com/yZexfBe.png",
+                      "http://i.imgur.com/GGMCmgQ.png"],
             "width":16,
             "height":16,
             "mines":40,
+            "tile":50
+        },
+
+        {
+            "imgset":["http://i.imgur.com/UQDXldC.png",
+                      "http://i.imgur.com/KNFymmX.png",
+                      "http://i.imgur.com/uMzfJRZ.png",
+                      "http://i.imgur.com/jZ5IVgs.png"],
+            "width":16,
+            "height":23,
+            "mines":56,
             "tile":50
         }
     ]

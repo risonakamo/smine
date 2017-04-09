@@ -14,7 +14,22 @@ function main()
 function init()
 {
     $.get("board.json",function(d){
-        var d2=d.data[0];
+        var boardSelect=window.location.hash;
+        boardSelect=boardSelect.split("#");
+
+        var board=0;
+
+        if (boardSelect.length>1)
+        {
+            board=parseInt(boardSelect[1]);
+
+            if (board<0 || board>boardSelect.length)
+            {
+                board=0;
+            }            
+        }
+
+        var d2=d.data[board];
 
         images=d2.imgset;
         $(".field img").eq(0).attr("src",images[0]);
@@ -39,6 +54,11 @@ function genBoxes(width,height,mines,tile)
 
     field.css("width",width*tile+"px")
         .css("height",height*tile+"px");
+
+    $(".wrap").css("width",width*tile+"px")
+        .css("height",height*tile+"px");
+
+    infoSet(width,height,mines);
 
     dataFields=genGrid(width,height,mines); //0: grid field, 1: single row
 
@@ -294,4 +314,31 @@ function loadImg()
         images=d.imgset;
         $(".field img").eq(0).attr("src",images[0]);
     },"json")
+}
+
+function infoSet(width,height,mines)
+{
+    var mineRate=((mines/(width*height))*100).toFixed(2);
+    var infoText="BETA PantsuSweeper v1.4 "+width+"x"+height+" "+mines+" mines ("+mineRate+"% mine rate)";
+   
+    var difficulty;
+
+    if (mineRate>=20)
+    {
+        difficulty="expert";
+    }
+
+    else if (mineRate>10 && mineRate<20)
+    {
+        difficulty="intermediate";
+    }
+
+    else
+    {
+        difficulty="easy";
+    }
+
+    infoText=infoText+" -> "+difficulty;
+
+    $(".info p").text(infoText);
 }
